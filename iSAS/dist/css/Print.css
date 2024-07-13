@@ -1,0 +1,16 @@
+﻿@media print {
+    body {
+        -webkit-print-color-adjust: exact; /* This settings is used to print background color, but only works in Chrome browser*/
+    }
+
+    .featured .content-wrapper {
+        background-color: greenyellow !important;
+        color: #3e5667;
+        padding: 20px 40px 30px 40px;
+        background-image: -ms-linear-gradient(left, greenyellow 0%, greenyellow 100%);
+        background-image: -o-linear-gradient(left, greenyellow 0%, #greenyellow 100%);
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, greenyellow), color-stop(1, greenyellow));
+        background-image: -webkit-linear-gradient(left, greenyellow 0%, greenyellow 100%);
+        background-image: linear-gradient(left, greenyellow 0%, greenyellow 100%);
+    }
+}

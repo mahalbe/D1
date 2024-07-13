@@ -1,0 +1,340 @@
+﻿@model ISas.Web.Models.Login
+@{
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+
+        h4, .h4 {
+            font-size: 13px;
+        }
+
+        h4, .h4, h5, .h5, h6, .h6 {
+            margin-top: -16px;
+            margin-bottom: 15px;
+        }
+
+        .modal-header .close {
+            margin-top: -2px;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            z-index: 111;
+            background: #900;
+            color: #fff;
+            padding: 5px 11px;
+            box-shadow: 2px 2px 2px #ddd;
+            opacity: 1;
+        }
+    </style>
+    <title>SAS-School Automation System | Log in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../bower_components/clientwiseloginpages/ES3/bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/clientwiseloginpages/ES3/login.css" rel="stylesheet">
+    <script src="../bower_components/clientwiseloginpages/ES3/jquery-3.2.1.min.js"></script>
+    @*<style type="text/css"></style>*@
+    <script src="../bower_components/clientwiseloginpages/ES3/bootstrap.min.js"></script>
+    <script src="../bower_components/clientwiseloginpages/ES3/backCommon.js"></script>
+    <script src="../bower_components/clientwiseloginpages/ES3/scr.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /*.landing_bg {
+                    background: url(https://d26pkxyw9vw39t.cloudfront.net/assets/default/college/background2-c8774114bd4118b8fe4c36e92fb64fe1a9f360726ba30a6c982b60e0481b9356.png) no-repeat scroll 0 0 transparent;
+                    background-size: cover;
+                    position: fixed;
+                    top: 0px;
+                    left: 0px;
+                    height: 100%;
+                    width: 100%;
+                    background-position-x: center;
+                    background-position-y: center;
+                    z-index: -1;
+                }*/
+
+
+        form {
+            padding: 10px;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            margin: 8px 0;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            padding-top: 16px;
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+
+
+        .inpt-fld {
+            display: block;
+            border: 1px solid #b6b9bb;
+            width: 100%;
+            padding: 8px;
+            background: #fff;
+            border-radius: 3px;
+        }
+
+        .bttn {
+            border-radius: 3px;
+            color: #fff;
+            background: #1e5c99;
+            padding: 8px 24px;
+            text-transform: capitalize;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+        }
+
+        .well {
+            min-height: 20px;
+            padding: 19px;
+            margin-bottom: 20px;
+            background: url(/Images/ClientWiseLoginPages/ES3/login_bx_bg.png) repeat left top;
+            border: 2px solid #dedede;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="">
+
+        <div class="col-md-7" style="padding:0; margin:0;"></div>
+        <div class="col-md-4">
+            <div style="background:rgba(255, 255, 255, 0.85); margin:20px;margin-bottom: 55px;">
+                <div class="imgcontainer" style="background:#fff; padding:10px;height: 82px;">
+                    <img src="~/@ViewBag.HeadDetails.LogoURL" alt="Avatar" class="avatar" style="max-height: 64px;max-width: 64px; float:left;">
+                    <div class="landing_college_title" style="margin-top: 10px;">
+                        <div class="landing_college_name ng-binding" style="font-weight: 700;font-size: 15px;color: #3a3f42;text-align: left;padding-left: 74px;">
+                            @ViewBag.HeadDetails.Header1
+                        </div>
+                        <div class="text_body_light ng-binding" style="text-align:left;padding-left: 74px;">
+                            @ViewBag.HeadDetails.Header2
+                        </div>
+                    </div>
+                </div>
+                
+                @using (Html.BeginForm("Login", "Account", new { schoolName = @ViewBag.HeadDetails.Header1 }, FormMethod.Post, htmlAttributes: new { style = "padding:0px 24px;", autocomplete = "off" }))
+                {
+                    <div class="top-h">
+                        @*<img src="~/bower_components/clientwiseloginpages/ES3/logo.png" width="30" class="img-e">*@
+                        <h3 class="text-center">
+                            Login with iSAS
+                        </h3>
+                        @*<hr>
+                        <p style="text-align:justify;">ERP Login for Administrator, Staff and Students of @ViewBag.HeadDetails.Header1.ToLower()</p>
+                        <h4 style="color:red;font-size:16px"></h4>*@
+                    </div>
+                    @Html.ValidationMessage("loginFailedError", htmlAttributes: new { @class = "text-danger" })
+                    <div class="">
+                        @if (Model != null && Model.SessionList != null)
+                        {
+                            @Html.DropDownListFor(m => m.SelectedSessionId, Model.SessionList, new { @class = "form-control" })
+                        }
+
+
+                        @Html.TextBoxFor(m => m.username, new { @class = "form-control", autocomplete = "off", placeholder = "User Name", Value = "admin" })
+
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "bvm@erp" })*@
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "SAS@123" })*@
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "mobile" })*@
+                        @Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "stmaria@erp#" })
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "vOcal20*21" })*@
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "radiance@erp" })*@
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "password", value = "Kapil@2000" })*@
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "123456" })*@
+                        @*@Html.PasswordFor(m => m.password, new { @class = "form-control", autocomplete = "off", placeholder = "Password", Value = "erp@2022" })*@
+
+
+                        <button type="submit" class="bttn">Login</button>
+                    </div>
+                    <div style="border-top: 1px solid #b6b9bb;padding-bottom: 20px; margin-top: 16px;"></div>
+                    <div class="" style="">
+                        <span class="psw" style="padding-top: 16px;font-weight: 700;font-size: 12px;color: #00c4b5;cursor: pointer;">
+                            <a style="color: #1e5c99;" href="@Url.Action("ForgotPassword", "Account")">Forgot your password?</a>
+                        </span>
+                    </div>
+                    <div style="text-align: center; bottom: 0px; left: 0px; width: 100%; text-align: center; font-size: 12px; color:#898a8a; padding: 10px;">
+                        @*<div style="display: inline-block; padding: 10px;">
+                                <a href="#" class="text_caption_light" style="display: inline-block;vertical-align: middle;">About</a>
+                                <span class="text_caption_light" style="display: inline-block;vertical-align: middle;">&nbsp;|&nbsp;</span>
+                                <a href="#" class="text_caption_light" style="display: inline-block;vertical-align: middle;">FAQ</a>
+                                <span class="text_caption_light" style="display: inline-block;vertical-align: middle;color: #b6b9bb;">&nbsp;|&nbsp;</span>
+                                <a href="#" class="text_caption_light" style="display: inline-block;vertical-align: middle;">Privacy</a>
+                                <span class="text_caption_light" style="display: inline-block;vertical-align: middle;color: #b6b9bb;">&nbsp;|&nbsp;</span>
+                                <a href="#" class="text_caption_light" style="display: inline-block;vertical-align: middle;">Terms</a>
+                        </div>*@
+                        <p>© @ViewBag.ClientInfo.CopyRightYear <a href="@ViewBag.ClientInfo.Comp_WebLink" target="_blank" style="color: #1e5c99;"><b>@ViewBag.ClientInfo.CopyRightName</b></a> All right reserved</p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-1" style="padding:0; margin:0;"></div>
+        <div class="contactftr" style="clear:both; background:white; overflow: auto; width:100%; padding-top:5px">
+            <div class="col-md-4 text-center">
+                <img alt="Office Address" style="max-width:45px;" src="~/bower_components/clientwiseloginpages/ES3/location1.png">
+                <h4>Office Address</h4>
+                <p>
+                    @ViewBag.ClientInfo.Comp_Address
+                </p>
+                <!--
+            <p>NoPaperForms Solutions Private Limited <br>2nd Floor, Plot No. 76, Okhla Industrial Estate,<br>Phase-III, New Delhi-110020</p> -->
+            </div>
+            <div class="col-md-4 text-center">
+                <img alt="Sales &amp; Business Development" style="max-width:100px;" src="~/bower_components/clientwiseloginpages/ES3/team12.png">
+                <h4>Sales &amp; Business Development</h4>
+                <p>
+                    <span>Email:</span>
+                    @ViewBag.ClientInfo.Comp_SalesEmailId,
+                    <span>Mobile:</span>&nbsp;@ViewBag.ClientInfo.Comp_SalesMobileNo
+                </p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img alt="Customer Relationship" style="max-width:100px;" src="~/bower_components/clientwiseloginpages/ES3/customerrelation1.png">
+                <h4>ERP Support</h4>
+                <p><a target="_blank" href="@ViewBag.ClientInfo.Comp_Support">Click For Support</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 577px; width: 1349px; z-index: -999999; position: fixed;">
+        <img src="~/bower_components/clientwiseloginpages/ES3/background.jpg" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 1349px; height: 605.701px; max-height: none; max-width: none; z-index: -999999; left: 0px; top: -14.3505px;">
+    </div>
+
+    <!-- modal popup for deepawali start -->
+    @*<div class="modal fade" id="modl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:0;min-height:auto;">
+                        <a href="javasrect:void(0)" class="close" data-dismiss="modal">×</a>
+                    </div>
+                    <div class="modal-body" style="padding:0;">
+                        <form style="padding:0;margin:0;">
+                            <div class="">
+                                <img src="~/bower_components/clientwiseloginpages/ES3/diwali.gif" class="img-responsive">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    @*<script type="text/javascript">
+            $(window).on('load', function () {
+                // $('#modl').modal('show');
+            });
+        </script>*@
+    <!-- modal popup for deepawali end-->
+    @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">
+                            Forgot your password
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="EmployeeId"> User ID</label>
+                                <input type="text" class="form-control" id="UserId" placeholder="User ID">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAdd" style="width:30%;padding: 10px 0;">Get Password</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:16%;padding: 10px 0;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+    @*<script>
+        $(document).ready(function () {
+
+            $("#btnAdd").click(function () {
+
+                var UserID = $("#UserId").val();
+
+                if (UserID == "") {
+                    alert("Please Enter Your User Id")
+                    $("#UserId").focus()
+                    return false;
+                }
+                $.ajax({
+                    url: '/home/ForgotPassword',
+                    type: "get",
+                    datatype: "json",
+                    data: ({ "UserID": UserID }),
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("Your Password Sent on your Mail Please Check you Mail! ")
+                            $("#UserId").val('');
+                        }
+                        else if (data == "unsuccess") {
+                            alert("Your Email Id  Is not available in the database please Contact Technical Department")
+                            $("#UserId").val('');
+                        }
+                        else if (data = "incorrect") {
+                            alert("User Id is incorrect");
+                            $("#UserId").val('');
+                        }
+                    },
+                    error: function () {
+                        alert("failed")
+                    }
+
+                });
+
+
+            });
+        });</script>*@
+</body>
+</html>
+

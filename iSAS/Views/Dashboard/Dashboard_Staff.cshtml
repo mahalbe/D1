@@ -1,0 +1,715 @@
+﻿@model ISas.Entities.DashboardEntities.Dashboard_StaffModel
+@using ISas.Web.Models;
+@{
+    ViewBag.Title = "DashBoard";
+    int currentMonth = DateTime.Now.Month;
+    int currentYear = DateTime.Now.Year;
+
+    Model.UserName = Session["DisplayName"].ToString();
+    Model.UserRole = Roles.GetRolesForUser().Single();
+    Model.StaffId = Session["UserId"].ToString();
+
+    int studBirthdayCount = Model.Student_BrithdayList.Where(r => r.DOB1 == "Today").Count();
+    int staffBirthdayCount = Model.Staff_BrithdayList.Where(r => r.DOB1 == "Today").Count();
+}
+<style>
+    #chartdiv_myAttendance {
+        width: 100%;
+        height: 268px;
+    }
+
+    #chartdiv_classAttnSummary {
+        width: 100%;
+        height: 278px;
+    }
+
+    .users-list > li img {
+        border-radius: 50%;
+        max-width: 100%;
+        height: 50px;
+    }
+</style>
+
+<section class="content-header">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-md-6 text-left" style="vertical-align:top;text-align:left;position:relative;top:-10px;">
+                        <h3>
+                            @Html.DisplayFor(r => Model.UserName)
+                            <small>@Html.DisplayFor(r => Model.UserRole)</small>
+                        </h3>
+                    </div>
+                    <div class="col-md-1">
+                        <a href="@Url.Action("MyRegister_V1", "MyClass")" title="My Class">
+                            <h4>
+                                <i class="glyphicon glyphicon-list"> </i><br />
+                                <span class="text-sm">My Class</span>
+                            </h4>
+                        </a>
+                    </div>
+                    @*<div class="col-md-1">
+                            <a href="#" style="cursor:not-allowed" title="Coming Soon...!">
+                                <h4>
+                                    <i class="glyphicon glyphicon-user"></i><br />
+                                    <span class="text-sm">Profile</span>
+                                </h4>
+                            </a>
+                        </div>*@
+
+                    <div class="col-md-1">
+                        <a href="@Url.Action("EditUserProfile", "Account")" title="My Profile">
+                            <h4>
+                                <i class="glyphicon glyphicon-user"></i><br />
+                                <span class="text-sm">Profile</span>
+                            </h4>
+                        </a>
+                    </div>
+
+                    <div class="col-md-1">
+                        @*<a href="@Url.Action("SalryDetails", "DashBoard_StaffStatatics")" style="cursor:not-allowed" title="Coming Soon...!">*@
+                        <a href="#" style="cursor:not-allowed" title="Coming Soon...!">
+                            <h4>
+                                <i class="fa fa-rupee"></i><br />
+                                <span class="text-sm">Salary</span>
+                            </h4>
+                        </a>
+                    </div>
+                    <div class="col-md-1">
+                        @*<a href="@Url.Action("BookHistory", "DashBoard_StaffStatatics")" style="cursor:not-allowed" title="Coming Soon...!">*@
+                        <a href="#" style="cursor:not-allowed" title="Coming Soon...!">
+                            <h4>
+                                <i class="glyphicon glyphicon-book"></i><br />
+                                <span class="text-sm">Books</span>
+                            </h4>
+                        </a>
+                    </div>
+                    <div class="col-md-1">
+                        @*<a href="@Url.Action("SMSDetails", "DashBoard_StaffStatatics")" style="cursor:not-allowed" title="Coming Soon...!">*@
+                        <a href="#" style="cursor:not-allowed" title="Coming Soon...!">
+                            <h4>
+                                <i class="glyphicon glyphicon-envelope"></i><br />
+                                <span class="text-sm">SMS</span>
+                            </h4>
+                        </a>
+                    </div>
+
+                    <div class="col-md-1">
+                        <a href=@Url.Action("Updation_V1", "Staff_StaffDetailMaster", new RouteValueDictionary(new { staffId = Session["UserId"].ToString() }))>
+                            <h4>
+                                <i class="glyphicon glyphicon-edit"></i><br />
+                                <span class="text-sm">Edit Profile</span>
+                            </h4>
+                        </a>
+                    </div>
+
+                    @*Open for DMA*@
+
+                    @*<div class="col-md-1">
+                            <a href="#" onclick="staffProfileUpdate_staffOnly()">
+                                <h4>
+                                    <i class="glyphicon glyphicon-edit"></i><br />
+                                    <span class="text-sm">Edit Profile</span>
+                                </h4>
+                            </a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="row">
+        <section class="col-lg-7 connectedSortable">
+            <div class="nav-tabs-custom" style="cursor: move;">
+                <ul class="nav nav-tabs ui-sortable-handle">
+                    <li class="active">
+                        <a href="#circularDiv" data-toggle="tab" aria-expanded="true">
+                            &nbsp;  <i class="fa fa-bullhorn"></i> &nbsp; Circular &nbsp;
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#noticeDiv" data-toggle="tab" aria-expanded="true">
+                            &nbsp;   <i class="fa  fa-sticky-note"></i> &nbsp; Notice &nbsp;
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#newsDiv" data-toggle="tab" aria-expanded="true">
+                            &nbsp; <i class="fa fa-book"></i> &nbsp; News &nbsp;
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#eventDiv" data-toggle="tab" aria-expanded="true">
+                            &nbsp;  <i class="fa fa-calendar"></i> &nbsp; Events &nbsp;
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content no-padding">
+                    <div class="tab-pane active" id="circularDiv">
+                        <div class="box box-widget">
+                            <div class="box-header">
+                                <a href="@Url.Action("DisplayList", "Circular")" class="label label-primary pull-right">View More..</a>
+                            </div>
+                            <div class="box-body chat slimScrollDiv_custom">
+                                @for (int i = 0; i < Model.CircularList.Count; i++)
+                                {
+                                    <div class="item">
+                                        <img src="~/Images/System/textIcon.png" alt="user image" class="">
+                                        <p class="message">
+                                            <a href="#" class="name">
+                                                <small class="text-muted pull-right"><i class="fa fa-calendar"></i> @Html.DisplayFor(r => Model.CircularList[i].UploadStartDate)</small>
+                                                @Html.DisplayFor(r => Model.CircularList[i].UploadTitle)
+                                            </a>
+                                            <span class="minimize"> @Html.DisplayFor(r => Model.CircularList[i].UploadDescription)</span>
+                                        </p>
+                                        @if (Model.CircularList[i].HavingAttachment)
+                                        {
+                                            List<string> attachments = Model.CircularList[i].UploadAttachment.Split(',').ToList();
+                                            <div class="attachment">
+                                                <h4>Attachments:</h4>
+                                                <p class="filename">
+                                                    @for (int j = 0; j < @attachments.Count; j++)
+                                                    {
+                                                        string commaStr = "";
+                                                        if (j > 0)
+                                                        {
+                                                            commaStr = ", ";
+                                                        }
+                                                        @Html.DisplayFor(r => commaStr)
+                                                        <a class="text-sm" href="~/@attachments[j]" download="@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)">@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)</a>
+                                                    }
+                                                </p>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="noticeDiv">
+                        <div class="box box-widget">
+                            <div class="box-header">
+                                <a href="@Url.Action("DisplayList", "Notice")" class="label label-primary pull-right">View More..</a>
+                            </div>
+                            <div class="box-body chat slimScrollDiv_custom">
+                                @for (int i = 0; i < Model.NoticeList.Count; i++)
+                                {
+                                    <div class="item">
+                                        <img src="~/Images/System/textIcon.png" alt="user image" class="">
+                                        <p class="message">
+                                            <a href="#" class="name">
+                                                <small class="text-muted pull-right"><i class="fa fa-calendar"></i> @Html.DisplayFor(r => Model.NoticeList[i].UploadStartDate)</small>
+                                                @Html.DisplayFor(r => Model.NoticeList[i].UploadTitle)
+                                            </a>
+                                            <span class="minimize"> @Html.DisplayFor(r => Model.NoticeList[i].UploadDescription)</span>
+                                        </p>
+                                        @if (Model.NoticeList[i].HavingAttachment)
+                                        {
+                                            List<string> attachments = Model.NoticeList[i].UploadAttachment.Split(',').ToList();
+                                            <div class="attachment">
+                                                <h4>Attachments:</h4>
+                                                <p class="filename">
+                                                    @for (int j = 0; j < @attachments.Count; j++)
+                                                    {
+                                                        string commaStr = "";
+                                                        if (j > 0)
+                                                        {
+                                                            commaStr = ", ";
+                                                        }
+                                                        @Html.DisplayFor(r => commaStr)
+                                                        <a class="text-sm" href="~/@attachments[j]" download="@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)">@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)</a>
+                                                    }
+                                                </p>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="newsDiv">
+                        <div class="box box-widget">
+                            <div class="box-header">
+                                <a href="@Url.Action("DisplayList", "News")" class="label label-primary pull-right">View More..</a>
+                            </div>
+                            <div class="box-body chat slimScrollDiv_custom">
+                                @for (int i = 0; i < Model.NewsList.Count; i++)
+                                {
+                                    <div class="item">
+                                        <img src="~/Images/System/textIcon.png" alt="user image" class="">
+                                        <p class="message">
+                                            <a href="#" class="name">
+                                                <small class="text-muted pull-right"><i class="fa fa-calendar"></i> @Html.DisplayFor(r => Model.NewsList[i].UploadStartDate)</small>
+                                                @Html.DisplayFor(r => Model.NewsList[i].UploadTitle)
+                                            </a>
+                                            <span class="minimize"> @Html.DisplayFor(r => Model.NewsList[i].UploadDescription)</span>
+                                        </p>
+                                        @if (Model.NewsList[i].HavingAttachment)
+                                        {
+                                            List<string> attachments = Model.NewsList[i].UploadAttachment.Split(',').ToList();
+                                            <div class="attachment">
+                                                <h4>Attachments:</h4>
+                                                <p class="filename">
+                                                    @for (int j = 0; j < @attachments.Count; j++)
+                                                    {
+                                                        string commaStr = "";
+                                                        if (j > 0)
+                                                        {
+                                                            commaStr = ", ";
+                                                        }
+                                                        @Html.DisplayFor(r => commaStr)
+                                                        <a class="text-sm" href="~/@attachments[j]" download="@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)">@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)</a>
+                                                    }
+                                                </p>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div id="eventDiv" class="tab-pane">
+                        <div class="box box-widget">
+                            <div class="box-header">
+                                <a href="@Url.Action("DisplayList", "Events")" class="label label-primary pull-right">View More..</a>
+                            </div>
+                            <div class="box-body chat slimScrollDiv_custom">
+                                @for (int i = 0; i < Model.EventsList.Count; i++)
+                                {
+                                    <div class="item">
+                                        <img src="~/Images/System/textIcon.png" alt="user image" class="">
+                                        <p class="message">
+                                            <a href="#" class="name">
+                                                <small class="text-muted pull-right"><i class="fa fa-calendar"></i> @Html.DisplayFor(r => Model.EventsList[i].UploadStartDate)</small>
+                                                @Html.DisplayFor(r => Model.EventsList[i].UploadTitle)
+                                            </a>
+                                            <span class="minimize"> @Html.DisplayFor(r => Model.EventsList[i].UploadDescription)</span>
+                                        </p>
+                                        @if (Model.EventsList[i].HavingAttachment)
+                                        {
+                                            List<string> attachments = Model.EventsList[i].UploadAttachment.Split(',').ToList();
+                                            <div class="attachment">
+                                                <h4>Attachments:</h4>
+                                                <p class="filename">
+                                                    @for (int j = 0; j < @attachments.Count; j++)
+                                                    {
+                                                        string commaStr = "";
+                                                        if (j > 0)
+                                                        {
+                                                            commaStr = ", ";
+                                                        }
+                                                        @Html.DisplayFor(r => commaStr)
+                                                        <a class="text-sm" href="~/@attachments[j]" download="@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)">@attachments[j].Substring(@attachments[j].LastIndexOf('@') + 1)</a>
+                                                    }
+                                                </p>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="toDoListMainDiv">
+                @{ Html.RenderAction("_DisplayToDoList", "ToDo_Task", new { staffId = @Session["UserId"].ToString() });}
+            </div>
+
+            @*<div id="toDoListMainDiv">
+                    @{ Html.RenderAction("_AppliedNBList", "AppliedLeaveNoticBoard", new { staffId = @Session["UserId"].ToString() });}
+                </div>*@
+
+        </section>
+        <section class="col-lg-5">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    <h3 class="box-title">My Attendance</h3>
+                    <h6 class="box-title pull-right"><a class="btn btn-primary" style="font-size:10px;" href="@Url.Action("AttendanceDetails", "DashBoard_StaffStatatics")">View More..</a> </h6>
+                </div>
+                <div class="box-body">
+                    <div id="chartdiv_myAttendance"></div>
+                </div>
+                <div class="box-footer">
+                    <label class="pull-left">Total Attendance : @Html.DisplayFor(r => Model.AttendanceSummary.TotalAttendance)</label>
+                    @*<label class="pull-right">Percentage : PENDING</label>*@
+                </div>
+            </div>
+
+            <div class="row">
+                <section class="col-lg-12">
+                    <div class="nav-tabs-custom" style="cursor: move;">
+                        <ul class="nav nav-tabs ui-sortable-handle">
+                            <li class="active">
+                                <a href="#studBirthdayDiv" data-toggle="tab" aria-expanded="true">
+                                    &nbsp;  <i class="fa fa-birthday-cake"></i> &nbsp; Student &nbsp;  @if (studBirthdayCount > 0)
+                                    {<span class="label label-primary">@Html.DisplayFor(r => studBirthdayCount) Today</span>}
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#staffBirthdayDiv" data-toggle="tab" aria-expanded="true">
+                                    &nbsp;   <i class="fa  fa-birthday-cake"></i> &nbsp; Staff &nbsp; @if (staffBirthdayCount > 0)
+                                    {<span class="label label-primary">@Html.DisplayFor(r => staffBirthdayCount) Today</span>}
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div class="tab-pane active" id="studBirthdayDiv">
+                                <div class="box box-widget">
+                                    <div class="box-body no-padding slimScrollDiv_custom">
+                                        <ul class="users-list clearfix">
+                                            @for (int i = 0; i < Model.Student_BrithdayList.Count; i++)
+                                            {
+                                                <li>
+                                                    @Html.HiddenFor(r => Model.Student_BrithdayList[i].ImageURL)
+                                                    <img src="~/@Model.Student_BrithdayList[i].ImageURL" alt="User Image">
+                                                    <a class="users-list-name" href="#" onclick="BirthdayMessege_CRUD('@i', '@Model.Student_BrithdayList[i].Student', '@Model.Student_BrithdayList[i].stud_uid')" title="Click here to send message..!">@Html.DisplayFor(r => Model.Student_BrithdayList[i].Student)</a>
+                                                    <span class="users-list-date">@Html.DisplayFor(r => Model.Student_BrithdayList[i].DOB1)</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="staffBirthdayDiv">
+                                <div class="box box-widget">
+                                    <div class="box-body no-padding slimScrollDiv_custom">
+                                        <ul class="users-list clearfix">
+                                            @for (int i = 0; i < Model.Staff_BrithdayList.Count; i++)
+                                            {
+                                                <li>
+                                                    <img src="~/@Model.Staff_BrithdayList[i].ImageURL" alt="User Image">
+                                                    <a class="users-list-name" href="#">@Html.DisplayFor(r => Model.Staff_BrithdayList[i].StaffName)</a>
+                                                    <span class="users-list-date">@Html.DisplayFor(r => Model.Staff_BrithdayList[i].DOB1)</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+
+
+    <div class="row">
+        <section class="col-lg-7">
+            <div class="nav-tabs-custom" style="cursor: move;">
+                <ul class="nav nav-tabs ui-sortable-handle">
+                    <li class="active">
+                        <a href="#timeTableDiv" data-toggle="tab" aria-expanded="true">
+                            &nbsp;  <i class="fa fa-calendar"></i> &nbsp; Time Table &nbsp;
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#adjustmentDiv" data-toggle="tab" aria-expanded="true">
+                            &nbsp;   <i class="fa  fa-clone"></i> &nbsp; Adjustments &nbsp; @if (Model.Staff_AdjustmentDetails.Count > 0)
+                            {<span class="label label-primary">@Html.DisplayFor(r => Model.Staff_AdjustmentDetails.Count) Today</span>}
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content no-padding">
+                    <div class="tab-pane active" id="timeTableDiv">
+                        <div class="box box-widget">
+                            <div class="box-body slimScrollDiv_custom">
+                                <table id="tblTimeTableMain" class="table table-condensed table-bordered table-hover table-responsive">
+                                    <tr>
+                                        <td>DAY</td>
+                                        <td>Periods</td>
+                                    </tr>
+                                    @for (int i = 0; i < Model.Staff_TimeTableDetails.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(r => Model.Staff_TimeTableDetails[i].Text)</td>
+                                            <td>@Html.DisplayFor(r => Model.Staff_TimeTableDetails[i].Value)</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="adjustmentDiv">
+                        <div class="box box-widget">
+                            <div class="box-body slimScrollDiv_custom">
+                                <ul class="todo-list ui-sortable">
+                                    @for (int i = 0; i < Model.Staff_AdjustmentDetails.Count; i++)
+                                    {
+                                        <li>
+                                            <span class="handle ui-sortable-handle">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </span>
+                                            <span class="text">@Html.DisplayFor(r => Model.Staff_AdjustmentDetails[i].Value) (@Html.DisplayFor(r => Model.Staff_AdjustmentDetails[i].Text))</span>
+                                            @*<small class="label label-danger">   <i class="fa fa-calendar"></i> P2 &nbsp; (25th Sept 18)</small>*@
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="col-lg-5">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    <h3 class="box-title">Class Attendance <small>(@DateTime.Now.ToLongDateString())</small> </h3>
+                    <h6 class="box-title pull-right"><a class="label label-primary" style="font-size:10px;" href="@Url.Action("DailyAttendance", "StudentAttendance")">Mark Attendance..</a> </h6>
+                </div>
+                <div class="box-body">
+                    <div id="chartdiv_classAttnSummary"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<script src="~/bower_components/newchart.js/amcharts.js"></script>
+<script src="~/bower_components/newchart.js/export.min.js"></script>
+<script src="~/bower_components/newchart.js/light.js"></script>
+<script src="~/bower_components/newchart.js/pie.js"></script>
+<script src="~/bower_components/newchart.js/serial.js"></script>
+<link href="~/bower_components/newchart.css/export.css" rel="stylesheet" />
+
+<script>
+    var chart = AmCharts.makeChart("chartdiv_myAttendance", {
+        "theme": "light",
+        "type": "serial",
+        "startDuration": 2,
+        "dataProvider": [{
+            "country": "Present",
+            "visits": '@Model.AttendanceSummary.P',
+            "color": "#GG9F45"
+        }, {
+            "country": "Absent",
+            "visits": '@Model.AttendanceSummary.A',
+            "color": "#FF9E01"
+        }, {
+            "country": "Leave",
+            "visits": '@Model.AttendanceSummary.L',
+            "color": "#FF0F00"
+        },{
+            "country": "Holiday",
+            "visits": '@Model.AttendanceSummary.HL',
+            "color": "#FF0F00"
+        }, {
+            "country": "Half-Day",
+            "visits": '@Model.AttendanceSummary.HD',
+            "color": "#FF9E90"
+        }, {
+            "country": "SL",
+            "visits": '@Model.AttendanceSummary.SL',
+            "color": "#FF9N10"
+        }],
+        "valueAxes": [{
+            "position": "left",
+            "axisAlpha": 0,
+            "gridAlpha": 0
+        }],
+        "graphs": [{
+            "balloonText": "[[category]]: <b>[[value]]</b>",
+            "colorField": "color",
+            "fillAlphas": 0.85,
+            "lineAlpha": 0.1,
+            "type": "column",
+            "topRadius": 1,
+            "valueField": "visits"
+        }],
+        "depth3D": 40,
+        "angle": 30,
+        "chartCursor": {
+            "categoryBalloonEnabled": false,
+            "cursorAlpha": 0,
+            "zoomable": false
+        },
+        "categoryField": "country",
+        "categoryAxis": {
+            "gridPosition": "start",
+            "axisAlpha": 0,
+            "gridAlpha": 0
+
+        },
+        "export": {
+            "enabled": true
+        }
+
+    }, 0);
+</script>
+<script>
+    var chart = AmCharts.makeChart("chartdiv_classAttnSummary", {
+        "theme": "light",
+        "type": "serial",
+        "startDuration": 2,
+        "dataProvider": [{
+            "country": "Total",
+            "visits": '@Model.Class_AttnSummary.ClassStrength',
+            "color": "#FFFF00"
+        },
+        {
+            "country": "Present",
+            "visits": '@Model.Class_AttnSummary.P',
+            "color": "#008000"
+        },
+        {
+            "country": "Absent",
+            "visits": '@Model.Class_AttnSummary.A',
+            "color": "#FF0000"
+        }, {
+            "country": "Leave",
+            "visits": '@Model.Class_AttnSummary.L',
+            "color": "#0000FF"
+        }],
+        "valueAxes": [{
+            "position": "left",
+            "title": "No of Students"
+        }],
+        "graphs": [{
+            "balloonText": "[[category]]: <b>[[value]]</b>",
+            "fillColorsField": "color",
+            "fillAlphas": 1,
+            "lineAlpha": 0.1,
+            "type": "column",
+            "valueField": "visits"
+        }],
+        "depth3D": 20,
+        "angle": 30,
+        "chartCursor": {
+            "categoryBalloonEnabled": false,
+            "cursorAlpha": 0,
+            "zoomable": false
+        },
+        "categoryField": "country",
+        "categoryAxis": {
+            "gridPosition": "start",
+            "labelRotation": 90
+        },
+        "export": {
+            "enabled": true
+        }
+
+    });
+</script>
+<script>
+    function BirthdayMessege_CRUD(i, sendToName, sendToId) {
+        var sendToImgURL = $('#Student_BrithdayList_' + i + '__ImageURL').val();
+        $.ajax({
+            type: "GET",
+            beforeSend: function () {
+                spinnerShow();
+            },
+            url: "../DashBoard_StaffStatatics/_Staff_BirthdayMessege",
+            data: { sendToImgURL: sendToImgURL, sendToName: sendToName, sendToId: sendToId},
+            error: function (xhr, status, error) {
+                OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+            },
+            success: function (result) {
+                OpenChatModal(result);
+            },
+            complete: function () {
+                spinnerHide();
+            }
+        });
+    }
+
+
+    $(function () {
+        $(".slimScrollDiv_custom").slimScroll({
+            height: "300",
+            size: "7px",
+            alwaysVisible: false
+        });
+    });
+
+    function toDoTaskCRUD(Id) {
+        $.ajax({
+            type: "GET",
+            url: '../ToDo_Task/_CRUD',
+            data: { staffId: '@Model.StaffId', Id: Id },
+            error: function (xhr, status, error) {
+                OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+            },
+            success: function (response) {
+                OpenModalWithSave(response, 'ADD/UPDATE', 'lg', );
+            }
+        });
+    }
+
+    function toDoTaskCRUD_Delete_Confirm(Id) {
+        AsyncConfirmYesNo("Confirmation", "Are you sure to remove this to do ?", MyYesFunction, MyNoFunction, Id);
+    }
+
+    function MyYesFunction(Id) {
+        $.ajax({
+            type: "GET",
+            beforeSend: function () {
+                spinnerShow();
+            },
+            url: "../ToDo_Task/ToDo_Task_Delete",
+            data: { Id: Id },
+            error: function (xhr, status, error) {
+                OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+            },
+            success: function (result) {
+                OpenMessegeAutoHideDiv(result.Msg, result.Color);
+                getToDoList();
+            },
+            complete: function () {
+                spinnerHide();
+            }
+        });
+    }
+
+      function getToDoList() {
+        $.ajax({
+            type: "GET",
+            beforeSend: function () {
+                spinnerShow();
+            },
+            url: "../ToDo_Task/_DisplayToDoList",
+            data: { staffId : '@Session["UserId"].ToString()' },
+            error: function (xhr, status, error) {
+                OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+            },
+            success: function (result) {
+                $('#toDoListMainDiv').html(result);
+            },
+            complete: function () {
+                spinnerHide();
+            }
+        });
+    }
+
+    function MyNoFunction() {
+        //alert('No Calling');
+    }
+</script>
+
+<script>
+    function staffProfileUpdate_staffOnly() {
+        $.ajax({
+            type: "GET",
+            beforeSend: function () {
+                spinnerShow();
+            },
+            url: "../StaffModule_DetailMaster/_updateStaffProfileSelection_StaffOnly",
+            data: {},
+            error: function (xhr, status, error) {
+                ``
+                OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+            },
+            success: function (result) {
+                OpenModalWithSave(result, ' <div style="color:white;font-size:14px;"> Update Profile </div>');
+            },
+            complete: function () {
+                spinnerHide();
+            }
+        });
+    }
+
+</script>

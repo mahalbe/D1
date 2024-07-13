@@ -1,0 +1,19 @@
+
+.img-e {
+    float:left;
+    margin-right: 10px;
+    margin-left: 51px;
+}
+.top-h h3{
+    font-family: -webkit-body;
+    font-weight: 600;
+    color: #00619b;
+}
+@media (max-width: 768px) {
+    .img-e {
+        margin-left: 0px;
+    }
+    .top-h h3 {
+        font-size:19px;
+    }
+}

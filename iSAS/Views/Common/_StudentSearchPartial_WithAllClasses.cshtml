@@ -1,0 +1,230 @@
+﻿@model ISas.Entities.StudentSearchModel
+
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            @Html.HiddenFor(r => Model.SessionId)
+
+            @*<div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">@Html.LabelFor(r => Model.SessionId)</span>
+                        @Html.DropDownListFor(m => m.SessionId, Model.SessionList, htmlAttributes: new { @class = "form-control select2", style = "width:100%;" })
+                        @Html.ValidationMessageFor(r => Model.SessionId, null, htmlAttributes: new { style = "color:red;" })
+                    </div>
+                </div>*@
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.ERPNo)</span>
+                    @Html.TextBoxFor(m => m.ERPNo, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(r => Model.ERPNo, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.ClassId)</span>
+                    @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "--Select--", htmlAttributes: new { @class = "form-control select2", style = "width:100%;", onchange = "EmptyValForNewStudent(); getAllSections_ByClassId('ClassId', 'SectionId');" })
+                    @Html.ValidationMessageFor(r => Model.ClassId, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.SectionId)</span>
+                    @Html.DropDownListFor(m => m.SectionId, Model.SectionList, htmlAttributes: new { @class = "form-control select2", style = "width:100%;", onchange = "EmptyValForNewStudent(); GetStudentListByClassSection('SessionId', 'ClassId', 'SectionId', 'StudentId');" })
+                    @Html.ValidationMessageFor(r => Model.SectionId, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.AdmNo)</span>
+                    @Html.TextBoxFor(m => m.AdmNo, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(r => Model.AdmNo, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-12">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.StudentId)</span>
+                    @Html.DropDownListFor(m => m.StudentId, Model.StudentList, htmlAttributes: new { @class = "form-control select2", style = "width:100%;", onchange = "studentChange()" })
+                    @Html.ValidationMessageFor(r => Model.StudentId, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+        </div>
+        <div class="row" id="rw_space1">
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row" id="rw_FatherName">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.FatherName)</span>
+                    @Html.TextBoxFor(m => m.FatherName, htmlAttributes: new { @class = "form-control", @readonly = true })
+                    @Html.ValidationMessageFor(r => Model.FatherName, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.MotherName)</span>
+                    @Html.TextBoxFor(m => m.MotherName, htmlAttributes: new { @class = "form-control", @readonly = true })
+                    @Html.ValidationMessageFor(r => Model.MotherName, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+
+        </div>
+        <div class="row" id="rw_space">
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row" id="rwFee_Mobile">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.MobileNo)</span>
+                    @Html.TextBoxFor(m => m.MobileNo, htmlAttributes: new { @class = "form-control", @readonly = true })
+                    @Html.ValidationMessageFor(r => Model.MobileNo, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">@Html.LabelFor(r => Model.FeeCategory)</span>
+                    @Html.TextBoxFor(m => m.FeeCategory, htmlAttributes: new { @class = "form-control", @readonly = true })
+                    @Html.ValidationMessageFor(r => Model.FeeCategory, null, htmlAttributes: new { style = "color:red;" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $("#AdmNo").on("keydown", function (event) {
+        debugger
+        if (event.which == 13) {
+            checkToCallFunction('', $('#AdmNo').val());
+        }
+    });
+
+    $("#ERPNo").on("keydown", function (event) {
+        if (event.which == 13) {
+            checkToCallFunction($('#ERPNo').val(), '');
+        }
+    }); checkToCallFunction
+
+
+    function studentChange() {
+        checkToCallFunction($('#StudentId').val(), '');
+    }
+
+
+    function checkToCallFunction(ErpNo, AdmNo) {
+        if (ErpNo != null && ErpNo != '') {
+            getSearchStudentDetails(ErpNo, AdmNo);
+        }
+        else if (AdmNo != null && AdmNo != '') {
+            getSearchStudentDetails(ErpNo, AdmNo);
+        } else {
+            return false;
+        }
+    }
+
+    function getSearchStudentDetails(ErpNo, AdmNo) {
+        
+        var classHtml = '<option value="">--Select--</option>';
+        var sectionHtml = '<option value="">--Select--</option>';
+        var studentHtml = '<option value="">--Select--</option>';
+        $.ajax({
+            type: "GET",
+            beforeSend: function () {
+                spinnerShow();
+            },
+            url: "../Common/GetStudentSearchDetails",
+            data: { SessionId: $('#SessionId').val(), ErpNo: ErpNo, AdmNo: AdmNo },
+            success: function (result) {
+                $('#AdmNo').val(result.AdmNo);
+                $('#ERPNo').val(result.ERPNo);
+                $('#FatherName').val(result.FatherName);
+                $('#MotherName').val(result.MotherName);
+                $('#MobileNo').val(result.MobileNo);
+                $('#FeeCategory').val(result.FeeCategory);
+
+                var siblingHtml = "";
+                for (var i = 0; i < result.SiblingList.length; i++) {
+                    if (siblingHtml == "" || siblingHtml == null) {
+                        siblingHtml += '<a href="#"  onclick="getSearchStudentDetails(' + result.SiblingList[i].Value + ')" >' + result.SiblingList[i].Text + '</a>';
+                        //siblingHtml += '<a href="#"  target="_blank" onclick="openSibingSearch(' + result.SiblingList[i].Value + ')" >' + result.SiblingList[i].Text + '</a>';
+                    } else {
+                        siblingHtml += ", " + '<a href="#"   onclick="getSearchStudentDetails(' + result.SiblingList[i].Value + ')" >' + result.SiblingList[i].Text + '</a>';
+                    }
+                }
+
+                $('#siblingNameHtml').html(siblingHtml);
+
+                for (var i = 0; i < result.ClassList.length; i++) {
+                    if (result.ClassList[i].Selected) {
+                        classHtml += '<option selected="selected" value=' + result.ClassList[i].Value + '>' + result.ClassList[i].Text + '</option>';
+                    } else {
+                        classHtml += '<option  value=' + result.ClassList[i].Value + '>' + result.ClassList[i].Text + '</option>';
+                    }
+                }
+                $('#ClassId').html(classHtml);
+                for (var i = 0; i < result.SectionList.length; i++) {
+                    if (result.SectionList[i].Selected) {
+                        sectionHtml += '<option  selected="selected" value=' + result.SectionList[i].Value + '>' + result.SectionList[i].Text + '</option>';
+                    } else {
+                        sectionHtml += '<option  value=' + result.SectionList[i].Value + '>' + result.SectionList[i].Text + '</option>';
+                    }
+                }
+
+                for (var i = 0; i < result.StudentList.length; i++) {
+                    if (result.StudentList[i].Selected) {
+                        studentHtml += '<option  selected="selected" value=' + result.StudentList[i].Value + '>' + result.StudentList[i].Text + '</option>';
+                    } else {
+                        studentHtml += '<option  value=' + result.StudentList[i].Value + '>' + result.StudentList[i].Text + '</option>';
+                    }
+                }
+
+                $('#SectionId').html(sectionHtml);
+                $('#StudentId').html(studentHtml);
+
+                onStudentChangeFunction();
+            },
+            complete: function () {
+                spinnerHide();
+            }
+        });
+    }
+
+
+    function openSibingSearch(ErpNo) {
+        $.ajax({
+            type: "GET",
+            beforeSend: function () {
+                spinnerShow();
+            },
+            url: "../Fee_Transaction/NewFeeReceipt",
+            data: {erpNo: ErpNo },
+            success: function (result) {
+            },
+            complete: function () {
+                spinnerHide();
+            }
+        });
+    }
+</script>

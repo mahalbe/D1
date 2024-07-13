@@ -1,0 +1,28 @@
+﻿@model List<ISas.Entities.CommonEntities.Common_AttachemntRefrence>
+@{
+    int count = 1;
+}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Document Name</th>
+            <th>Attach File</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            @Html.HiddenFor(r => Model[i].uniqueKey, htmlAttributes: new { id = "uniqueKey_" + @i })
+            @Html.HiddenFor(r => Model[i].filePath, htmlAttributes: new { id = "filePath_" + @i })
+
+            <tr>
+                <td>@Html.DisplayFor(r => @count) </td>
+                <td>@Html.DisplayFor(r => Model[i].docType) </td>
+                <td><a class="text-sm" href="@Model[i].filePath" download="@Model[i].fileName"> @Html.DisplayFor(r => Model[i].fileName)</a></td>
+            </tr>
+
+            count++;
+        }
+    </tbody>
+</table>

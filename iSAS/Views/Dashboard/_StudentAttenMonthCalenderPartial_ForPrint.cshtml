@@ -1,0 +1,196 @@
+﻿@model ISas.Entities.DashboardEntities.WeekForMonth
+
+@helper DisplayColor(string input)
+{
+    if (input == "WO")
+    {
+        input = "background-color:#0099c6 !important; color:white !important;";
+        @input
+    }
+    else
+    {
+        input = "background-color:#109618 !important; color:white !important;;";
+        @input
+    }
+}
+<table id="example3" class="table table-responsive table-bordered table-condensed display nowrap" style="width:100%;">
+    <thead>
+        <tr>
+            <th colspan="7" class="text-center">
+                <span class="text-primary" style="font-size:large"> @Model.MonthNameWithYear</span>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Sun
+            </th>
+            <th>
+                Mon
+            </th>
+            <th>
+                Tue
+            </th>
+            <th>
+                Wed
+            </th>
+            <th>
+                Thurs
+            </th>
+            <th>
+                Fri
+            </th>
+            <th>
+                Sat
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="week1">
+            @foreach (var item in Model.Week1)
+            {
+                if (item != null)
+                {
+                    if (item.Date != DateTime.Today)
+                    {
+                        <td class=@item.AttendenceStatus>
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="selected">
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week2">
+            @foreach (var item in Model.Week2)
+            {
+                if (item != null)
+                {
+                    if (item.Date != DateTime.Today)
+                    {
+                        <td class=@item.AttendenceStatus>
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="selected">
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week3">
+            @foreach (var item in Model.Week3)
+            {
+                if (item != null)
+                {
+                    if (item.Date != DateTime.Today)
+                    {
+                        <td class=@item.AttendenceStatus>
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="selected">
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week4">
+            @foreach (var item in Model.Week4)
+            {
+                if (item != null)
+                {
+                    if (item.Date != DateTime.Today)
+                    {
+                        <td class=@item.AttendenceStatus>
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="selected @item.AttendenceStatus ">
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week5">
+            @foreach (var item in Model.Week5)
+            {
+                if (item != null)
+                {
+                    if (item.Date != DateTime.Today)
+                    {
+                        <td class=@item.AttendenceStatus>
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="selected">
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week6">
+            @if (Model.Week6 != null)
+            {
+                foreach (var item in Model.Week6)
+                {
+                    if (item != null)
+                    {
+                        if (item.Date != DateTime.Today)
+                        {
+                            <td class=@item.AttendenceStatus>
+                                <span>@item.dtDay</span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="selected">
+                                <span>@item.dtDay</span>
+                            </td>
+                        }
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                }
+            }
+        </tr>
+    </tbody>
+</table>

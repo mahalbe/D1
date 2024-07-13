@@ -1,0 +1,17 @@
+﻿@model List<ISas.Entities.CommonEntities.Alert_EventManagerModel>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <li>
+        <a href="javascript:void(0)">
+            <div class="menu-info" style="margin-left:6%;">
+                <p class="direct-chat-timestamp pull-left"><i class="fa fa-clock-o"></i> &nbsp;  @Html.DisplayFor(r => Model[i].EventDate) @Html.DisplayFor(r => Model[i].EventTime)</p>
+                @*<p class="direct-chat-timestamp pull-right"><i class="label label-info">new</i></p>*@
+                <br />
+                <h4 class="control-sidebar-subheading">
+                    @Html.DisplayFor(r => Model[i].EventDiscription)
+                </h4>
+            </div>
+        </a>
+    </li>
+}

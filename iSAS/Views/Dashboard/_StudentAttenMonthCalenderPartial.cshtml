@@ -1,0 +1,151 @@
+﻿@model ISas.Entities.DashboardEntities.WeekForMonth
+<div class="text-center">
+    <div class="pull-left">
+        @*<strong><a class="month btn btn-info btn-sm" onclick="fun_GetAttenCal(this)" href="javascript: return false;" id="@Model.prevMonth"><span class="glyphicon glyphicon-arrow-left"></span></a></strong>*@
+        <button onclick="fun_GetAttenCal(this)" id="@Model.prevMonth" class="month btn btn-info btn-sm" type="button" title="Previous">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </button>
+    </div>
+    <span>
+        <strong><span class="text-info" style="font-size:large"> @Model.MonthNameWithYear</span></strong>
+    </span>
+    <span class="pull-right">
+        @if (!string.IsNullOrEmpty(Model.nextMonth))
+        {
+            <button onclick="fun_GetAttenCal(this)" id="@Model.nextMonth" class="month btn btn-info btn-sm" type="button" title="Next">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+
+            @*<strong><a class=" btn btn-info btn-sm"  href="javascript: return false;" ><span class="glyphicon glyphicon-arrow-right"></span></a></strong>*@
+        }
+        else
+        {
+            <button class="btn btn-info btn-sm" type="button" disabled="disabled" title="Can not view upcomming month attendance..">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+            @*<strong><a class="btn btn-info btn-sm" href="javascript: return false;" title="Can not view upcomming month attendance.."><span class="glyphicon glyphicon-arrow-right"></span></a></strong>*@
+        }
+    </span>
+</div>
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>
+                Sun
+            </th>
+            <th>
+                Mon
+            </th>
+            <th>
+                Tue
+            </th>
+            <th>
+                Wed
+            </th>
+            <th>
+                Thurs
+            </th>
+            <th>
+                Fri
+            </th>
+            <th>
+                Sat
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="week1">
+            @foreach (var item in Model.Week1)
+            {
+                if (item != null)
+                {
+                    <td class=@item.AttendenceStatus>
+                        <span>@item.dtDay</span><br />
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week2">
+            @foreach (var item in Model.Week2)
+            {
+                if (item != null)
+                {
+                    <td class=@item.AttendenceStatus>
+                        <span>@item.dtDay</span>
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week3">
+            @foreach (var item in Model.Week3)
+            {
+                if (item != null)
+                {
+                    <td class=@item.AttendenceStatus>
+                        <span>@item.dtDay</span>
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week4">
+            @foreach (var item in Model.Week4)
+            {
+                if (item != null)
+                {
+                    <td class=@item.AttendenceStatus>
+                        <span>@item.dtDay</span>
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week5">
+            @foreach (var item in Model.Week5)
+            {
+                if (item != null)
+                {
+                    <td class=@item.AttendenceStatus>
+                        <span>@item.dtDay</span>
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+        <tr id="week6">
+            @if (Model.Week6 != null)
+            {
+                foreach (var item in Model.Week6)
+                {
+                    if (item != null)
+                    {
+                        <td class=@item.AttendenceStatus>
+                            <span>@item.dtDay</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                }
+            }
+        </tr>
+    </tbody>
+</table>

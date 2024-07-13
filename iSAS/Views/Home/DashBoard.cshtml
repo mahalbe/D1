@@ -1,0 +1,282 @@
+﻿@model ISas.Web.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "DashBoard";
+}
+
+<div class="row">
+<div class="col-xs-12 col-sm-9">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="eventsHome_box">
+                <div class="heading">news</div>
+                <ul class="nav">
+                <li><a href="#">News 1</a></li>
+                <li><a href="#">News 2</a></li>
+                <li><a href="#">News 3</a></li>
+                <li><a href="#">News 4</a></li>
+                <li><a href="#" class="loadmore">More...</a></li>    
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="eventsHome_box">
+                <div class="heading">events</div>
+                <ul class="nav">
+                <li><a href="#">events 1</a></li>
+                <li><a href="#">events 2</a></li>
+                <li><a href="#">events 3</a></li>
+                <li><a href="#">events 4</a></li>
+                <li><a href="#" class="loadmore">More...</a></li>    
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="eventsHome_box">
+                <div class="heading">notice</div>
+                <ul class="nav">
+                <li><a href="#">notice 1</a></li>
+                <li><a href="#">notice 2</a></li>
+                <li><a href="#">notice 3</a></li>
+                <li><a href="#">notice 4</a></li>
+                <li><a href="#" class="loadmore">More...</a></li>    
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="eventsHome_box">
+                <div class="heading">circular</div>
+                <ul class="nav">
+                <li><a href="#">circular 1</a></li>
+                <li><a href="#">circular 2</a></li>
+                <li><a href="#">circular 3</a></li>
+                <li><a href="#">circular 4</a></li>
+                <li><a href="#" class="loadmore">More...</a></li>    
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+        <div class="row">
+        <div class="col-xs-12">
+            <div class="content-box-large">
+                <h1 class="heading_border">daily home work</h1>
+                <div class="table-responsive">
+                  <table class="table" style="margin:0;">
+                    <tr>
+                    <td style="border: 0;"><a href="#">Hindi Chapter 1</a></td>
+                    <td class="text-right" style="border: 0;"><a href="#">Download</a></td>    
+                    </tr>
+                      
+                      <tr>
+                    <td><a href="#">English Chapter 1</a></td>
+                    <td class="text-right"><a href="#">Download</a></td>    
+                    </tr>
+                      
+                      <tr>
+                    <td><a href="#">Maths Chapter 1</a></td>
+                    <td class="text-right"><a href="#">Download</a></td>    
+                    </tr>
+                      
+                      <tr>
+                    <td><a href="#">Science Chapter 1</a></td>
+                    <td class="text-right"><a href="#">Download</a></td>    
+                    </tr>
+                      
+                      <tr>
+                    <td><a href="#">SST Chapter 1</a></td>
+                    <td class="text-right"><a href="#">Download</a></td>    
+                    </tr>
+                      
+                      <tr>
+                    <td class="text-right" colspan="2"><a href="#">Previous Download</a></td>    
+                    </tr>
+                  </table>
+                </div>
+            </div>
+            </div>
+        <div class="col-xs-12">
+            <div class="content-box-large">
+                <h1 class="heading_border">transportation</h1>
+                <h4 class="text-success"><strong>Availed Transport</strong> : Yes</h4>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <table class="table" style="margin:15px 0;">
+                          <tr>
+                          <th>Route</th> 
+                          <td>Route - 5</td>       
+                          </tr>
+                            <tr>
+                          <th>Stop</th> 
+                          <td>Indrapuram</td>       
+                          </tr>
+                            <tr>
+                          <th>Charges</th> 
+                          <td>1500 per month</td>       
+                          </tr>
+                        </table>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <table class="table" style="margin:15px 0;">
+                          <tr>
+                          <th>Route</th> 
+                          <td>Route - 5</td>       
+                          </tr>
+                            <tr>
+                          <th>Stop</th> 
+                          <td>Indrapuram</td>       
+                          </tr>
+                            <tr>
+                          <th>Charges</th> 
+                          <td>1500 per month</td>       
+                          </tr>
+                        </table>
+                    </div>
+                    <div class="col-xs-12">
+                        <table class="table" style="margin:15px 0 0;">
+                          <tr>
+                          <th>Driver Detail</th> 
+                          <td>Mohan Singh (1234567890)</td>       
+                          </tr>
+                            <tr>
+                          <th>Driver Detail</th> 
+                          <td>Vinay Singh (9876543210)</td>
+                          </tr>
+                            <tr>
+                          <th>Vehicle No.</th> 
+                          <td>DL-5c-123654</td>       
+                          </tr>
+                            <tr>
+                          <th>Vehicle Type</th> 
+                          <td>Bus</td>       
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="content-box-large">
+                <h1 class="heading_border">attendance (april 2017)</h1>
+                <!-- Responsive calendar - START -->
+    	<div class="responsive-calendar">
+        <div class="controls">
+            <a class="pull-left" data-go="prev"><div class="btn btn-primary">Prev</div></a>
+            <h4><span data-head-year></span> <span data-head-month></span></h4>
+            <a class="pull-right" data-go="next"><div class="btn btn-primary">Next</div></a>
+        </div><hr/>
+        <div class="day-headers">
+          <div class="day header">Mon</div>
+          <div class="day header">Tue</div>
+          <div class="day header">Wed</div>
+          <div class="day header">Thu</div>
+          <div class="day header">Fri</div>
+          <div class="day header">Sat</div>
+          <div class="day header">Sun</div>
+        </div>
+        <div class="days" data-group="days">
+          
+        </div>
+      </div>
+      <!-- Responsive calendar - END -->
+    <div class="attandance_status">
+    <span class="absent">Absent</span>            
+    <span class="present">Present</span>            
+    <span class="holidays">Holidays</span>            
+    <span class="weekoff">Week Off</span>                
+    </div>            
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <div class="col-xs-12 col-sm-3">
+    <div class="content-box-large">
+<h1 class="heading_border">fee detail</h1>
+<div class="table-responsive searchtable">
+		  <table class="table table-bordered table-responsive" cellspacing="0" cellpadding="0" border="0">
+		    <thead>
+			<tr>
+			<th>Installment</th>
+			<th>Invoice</th>
+			<th>Receipt</th>
+			</tr>
+			</thead>
+			
+			<tbody>
+			<tr>
+			<td class="bg_green">Jan-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+			<tr>
+			<td class="bg_yellow">Feb-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td class="bg_red">Mar-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>Apr-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>May-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>June-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>July-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>Aug-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>Sep-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>Oct-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>Nov-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+                <tr>
+			<td>Dec-2017</td>
+			<td><a href="#">Download</a></td>
+			<td><a href="#">Download</a></td>
+			</tr>
+			</tbody>
+		  </table>
+		  </div>
+        <div class="attandance_status">
+    <span class="bg_green">Paid</span>            
+    <span class="bg_red">Defaulter</span>            
+    <span class="bg_yellow">Partial Paid</span>            
+    <span class="bg_white">Future Dues</span>                
+    </div>
+</div>
+    </div>
+</div>

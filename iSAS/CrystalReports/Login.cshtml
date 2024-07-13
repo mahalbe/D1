@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    body {
+        background-image: url(images/underbg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .col-md-7.col-md-offset-5 {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .under_construction_section .under_construction_inner {
+        background-color: #fff;
+        margin-top: 12%;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 5px 0px rgba(162, 162, 162, 0.73);
+        padding: 50px;
+    }
+
+    .logo_section .img-responsive {
+        margin: 0 auto;
+    }
+
+
+    .under_cons_h3 h3 {
+        font-size: 34px;
+        text-align: center;
+        font-family: Ubuntu-Bold;
+        font-weight: 900;
+        color: #0b0f79;
+        border-bottom: 2px solid #0b0f79;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+    }
+
+
+    .count_down span {
+        display: block;
+        font-size: 20px;
+    }
+
+    .count_down {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+        .count_down ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+            .count_down ul li {
+                display: inline-block;
+                background-color: #000;
+                color: #fff;
+                margin-left: 18px;
+                width: 75px;
+                padding: 10px;
+                border-radius: 10px;
+                font-weight: 700;
+            }
+</style>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="row under_construction_section">
+            <div class="col-md-7 col-md-offset-5 under_construction_inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo_section">
+                            <img src="images/balVikasLog.jpg" class="img-responsive">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="under_cons_h3">
+                            <h3> ERP UNDERMAINTENANCE </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="count_down">
+                            <ul>
+                                <li><span id="days"></span>Days</li>
+                                <li><span id="hours"></span>Hours</li>
+                                <li><span id="minutes"></span>Minutes</li>
+                                <li><span id="seconds"></span>Seconds</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+    let countDown = new Date('Mar 30, 2021 17:00:00').getTime(),
+        x = setInterval(function () {
+
+            let now = new Date().getTime(),
+                distance = countDown - now;
+
+            document.getElementById('days').innerText = Math.floor(distance / (day)),
+                document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+                document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+                document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+        }, second)
+
+</script>

@@ -1,0 +1,8 @@
+1. View More/Less char in Circular Paragraph.
+2. On View More click some more information needed on list on circular list.
+3. If class teacher is subject teacher also then it should not show double records.
+4. Circular list should be date wise descending order. same as news, news, events.
+5. Accepted format should be displayed to user with size.
+
+
+

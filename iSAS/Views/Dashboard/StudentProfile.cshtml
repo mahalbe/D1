@@ -1,0 +1,280 @@
+﻿@model ISas.Entities.DashboardEntities.StudentProfile
+@{
+    string smsToName = Model.SMSF == true ? "Father" : Model.SMSM == true ? "Mother" : "Other";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Student Profile
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="#" onclick="window.location.reload()" title="Refresh"><i class="fa fa-refresh"></i></a> |
+            <a href="javascript: history.go(-1)" title="Back"><i class="fa fa-arrow-left"></i> </a> |
+            <a href="@Url.Action("Dashboard", "Dashboard")" title="Dashboard"><i class="fa fa-dashboard"></i></a>
+        </li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">Student profile</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <a target="_blank" href="@Url.Action("PhotoUpload_SingleStudent", "Student_PhotoUpload_SingleStudent", new { type = "S" })"> <img class="profile-user-img img-responsive img-circle" src="~/@Model.StudentImages.StudentImageURL" alt="Student Image" title="Student Image, Click here to Change/View."></a>
+                    <h3 class="profile-username text-center">@Html.DisplayFor(r => Model.Student) <small class="text-primary">@Html.DisplayFor(r => Model.Gender)</small></h3>
+                    @*<p class="text-muted text-center"> </p>*@
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Roll No.</b> <a class="pull-right">@Html.DisplayFor(r => Model.RollNo)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Adm. No.</b> <a class="pull-right">@Html.DisplayFor(r => Model.AdmNo)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>ERP No.</b> <a class="pull-right">@Html.DisplayFor(r => Model.ERP)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Class</b> <a class="pull-right">@Html.DisplayFor(r => Model.Class)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>DOB</b> <a class="pull-right">@Html.DisplayFor(r => Model.DOB)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>DOA</b> <a class="pull-right">@Html.DisplayFor(r => Model.DOA)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Status</b> <a class="pull-right">@Html.DisplayFor(r => Model.Status)</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Personal Details</a></li>
+                    <li><a href="#timeline" data-toggle="tab">Contact Details</a></li>
+                    <li><a href="#settings" data-toggle="tab">Transport Details</a></li>
+                    @*<li><a href="#updateRequest" data-toggle="tab">Update Request</a></li>*@
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        <!-- Post -->
+                        <div class="post">
+                            <ul class="timeline timeline-inverse">
+                                <li>
+                                    <i class="fa fa-user bg-aqua"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Father Name</a> : @Html.DisplayFor(r => Model.Father)
+                                        </h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user bg-aqua"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Mother Name</a> : @Html.DisplayFor(r => Model.Mother)
+                                        </h3>
+                                    </div>
+                                </li>
+                                <li class="time-label">
+                                    <span class="bg-green">
+                                        Parent Images
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-camera bg-purple"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header"><a href="#">Authorized Person Images</a></h3>
+                                        <div class="timeline-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <a target="_blank" href="@Url.Action("PhotoUpload_SingleStudent", "Student_PhotoUpload_SingleStudent", new { type = "F" })">  <img class="img-responsive" src="~/@Model.StudentImages.FatherImageURL" alt="Father Image" title="Father Image, Click here to Change/View." style="height:70%;width:70%;object-fit: contain"> </a>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <a target="_blank" href="@Url.Action("PhotoUpload_SingleStudent", "Student_PhotoUpload_SingleStudent", new { type = "M" })"><img class="img-responsive" src="~/@Model.StudentImages.MotherImageURL" alt="Mother Image" title="Mother Image, Click here to Change/View." style="height:70%;width:70%;object-fit: contain"></a>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <a target="_blank" href="@Url.Action("PhotoUpload_SingleStudent", "Student_PhotoUpload_SingleStudent", new { type = "G" })"> <img class="img-responsive" src="~/@Model.StudentImages.GuardianImageURL" alt="Gurdian Image" title="Gurdian Image, Click here to Change/View." style="height:70%;width:70%;object-fit: contain"> </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <a target="_blank" href="@Url.Action("PhotoUpload_SingleStudent", "Student_PhotoUpload_SingleStudent", new { type = "GF" })"> <img class="img-responsive" src="~/@Model.StudentImages.GrandFatherImageURL" alt="Grand Father Image" title="Grand Father Image, Click here to Change/View." style="height:70%;width:70%;object-fit: contain"> </a>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <a target="_blank" href="@Url.Action("PhotoUpload_SingleStudent", "Student_PhotoUpload_SingleStudent", new { type = "GM" })"> <img class="img-responsive" src="~/@Model.StudentImages.GrandMotherImageURL" alt="Grand Mother Image" title="Grand Mother Image, Click here to Change/View." style="height:70%;width:70%;object-fit: contain"> </a>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <a target="_blank" href="@Url.Action("PhotoUpload_SingleStudent", "Student_PhotoUpload_SingleStudent", new { type = "P" })"> <img class="img-responsive" src="~/@Model.StudentImages.OtherImageURL" alt="Picked up by Image" title="Picked up by Image, Click here to Change/View." style="height:70%;width:70%;object-fit: contain"> </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <i class="fa fa-clock-o bg-gray"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.post -->
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="timeline">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <strong><i class="fa fa-mobile-phone margin-r-5"></i>Father Mobile</strong>
+                                <p class="text-muted">@Html.DisplayFor(r => Model.FMobileNo)</p>
+                            </div>
+                            <div class="col-md-4" style="border-left:1px solid #808080">
+                                <strong><i class="fa fa-mobile-phone margin-r-5"></i>Mother Mobile</strong>
+                                <p class="text-muted">@Html.DisplayFor(r => Model.MMobileNo)</p>
+                            </div>
+                            <div class="col-md-4" style="border-left:1px solid #808080">
+                                <strong><i class="fa fa-mobile-phone margin-r-5"></i>SMS No.</strong>
+                                <p class="text-muted">@Html.DisplayFor(r => Model.SMSNo) <label class="label label-info">@Html.DisplayFor(r => smsToName)</label> </p>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong><i class="fa fa-phone-square margin-r-5"></i>Contact No 1</strong>
+                                <p class="text-muted">@Html.DisplayFor(r => Model.Contact1)</p>
+                            </div>
+                            <div class="col-md-6" style="border-left:1px solid #808080">
+                                <strong><i class="fa fa-phone-square margin-r-5"></i>Contact No 2</strong>
+                                <p class="text-muted">@Html.DisplayFor(r => Model.Contact2)</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i>Correspondence Address</strong>
+                        <p class="text-muted">@Html.DisplayFor(r => Model.Address)</p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i>Permanent Address</strong>
+                        <p class="text-muted">@Html.DisplayFor(r => Model.Address1)</p>
+                        <hr>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="settings">
+                        <div class="post">
+                            <ul class="timeline timeline-inverse">
+                                <li>
+                                    <i class="fa fa-bus bg-aqua"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Route</a> : @Html.DisplayFor(r => Model.RouteName)
+                                        </h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-map-marker margin-r-5 bg-blue"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Stop</a> : @Html.DisplayFor(r => Model.StopName)
+                                        </h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user bg-yellow"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Driver Name</a> : @Html.DisplayFor(r => Model.DriverName)
+                                        </h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-user bg-aqua"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Helper Name</a> : @Html.DisplayFor(r => Model.HelperName)
+                                        </h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-clock-o bg-blue"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Pick-up Time</a> : @Html.DisplayFor(r => Model.Pickuptime)
+                                        </h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa fa-clock-o bg-yellow"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Drop Time</a> : @Html.DisplayFor(r => Model.DropTime)
+                                        </h3>
+                                    </div>
+                                </li>
+
+
+                                <li>
+                                    <i class="fa fa-clock-o bg-gray"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="updateRequest">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">Request By</label>
+
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputName" placeholder="Request By">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputExperience" class="col-sm-2 control-label">Request Details</label>
+
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="inputExperience" placeholder="Request Details"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" /> <a>I Request to change the details as above.</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

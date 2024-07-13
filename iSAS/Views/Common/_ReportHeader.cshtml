@@ -1,0 +1,28 @@
+﻿@model  ISas.Entities.CommonEntities.ReportHeaderEntities
+
+<div id="reportHeaderDiv">
+    <table id="tblReportHeader" cellpadding="0" cellspacing="0" style="width:100%;">
+        <tr>
+            <td>
+                <span>
+                    <img src="@ViewBag.ImageData" height="100" width="100" />
+                </span>
+            </td>
+            <td style="text-align:left;">
+                <span style="font-size:22px;font-family:'Times New Roman';">
+                    <strong>@Html.DisplayFor(r => Model.Header1)</strong>
+                </span><br />
+                <span style="font-size:18px;font-family:'Times New Roman';">
+                    <strong>@Html.DisplayFor(r => Model.Header2)</strong>
+                </span><br />
+                <span style="font-size:18px;font-family:'Times New Roman';">
+                    <strong>@Html.DisplayFor(r => Model.Header3) @Html.DisplayFor(r => Model.Header4)</strong>
+                </span><br />
+
+                <span style="font-size:18px;font-family:'Times New Roman';">
+                    <strong>@Html.DisplayFor(r => Model.ReportName)</strong>
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>

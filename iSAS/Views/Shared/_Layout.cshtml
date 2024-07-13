@@ -1,0 +1,932 @@
+﻿@{
+    ISas.Web.ViewModels.BaseViewModel sessVal = new ISas.Web.ViewModels.BaseViewModel();
+    bool isNotificationDispaly = false;
+    if (User.IsInRole("Admin") || User.IsInRole("Principal"))
+    {
+        isNotificationDispaly = true;
+    }
+}
+<!DOCTYPE html>
+
+<html id="htmlOuterMain">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>7itians-School Automation System</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <link href="~/bower_components/icheck/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/bower_components/select2/dist/css/select2.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="~/bower_components/jvectormap/jquery-jvectormap.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="~/bower_components/newCustomCSS/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="~/bower_components/googleapisFont/css/css.css">
+
+
+    <script src="../bower_components/newCustomJS/jquery-1.12.4.js"></script>
+    <script src="../bower_components/newCustomJS/jquery.dataTables.min.js"></script>
+    <script src="../bower_components/newCustomJS/dataTables.bootstrap.min.js"></script>
+    <script src="../bower_components/newCustomJS/dataTables.responsive.min.js"></script>
+    <script src="../bower_components/newCustomJS/responsive.bootstrap.min.js"></script>
+
+
+    <!-- Bootstrap 3.3.7 -->
+
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- FastClick -->
+    <script src="../bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../dist/js/adminlte.min.js"></script>
+    <!-- Sparkline -->
+    <script src="../bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- jvectormap  -->
+    <script src="../plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="../plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="../bower_components/moment/min/moment.min.js"></script>
+    <script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <!-- ChartJS -->
+    <script src="../bower_components/Chart.js/Chart.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../dist/js/demo.js"></script>
+    <!-- Custom Js -->
+    <script src="../dist/custom js/CustomCommon.js"></script>
+    <script src="../dist/custom js/CommonDropDown.js"></script>
+    <link rel="stylesheet" href="~/bower_components/newCustomCSS/bootstrap-multiselect.css" />
+    <script src="../bower_components/newCustomJS/bootstrap-multiselect.js"></script>
+    <script src="../bower_components/newCustomJS/jquery.Jcrop.min.js"></script>
+    <script src="../bower_components/newCustomJS/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="~/plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- bootstrap datepicker -->
+    <script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="~/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="~/bower_components/newCustomCSS/timeout-dialog.css">
+    <script src="../bower_components/newCustomJS/timeout-dialog.js"></script>
+    <script src="~/bower_components/newCustomJS/table2excel.js"></script>
+    <script src="~/bower_components/icheck/icheck.min.js"></script>
+    <script src="../plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap2-toggle.min.js"></script>
+    <!-- Style for Attn Cal -->
+    <style>
+        .WO {
+            background-color: #0099c6 !important;
+            color: white !important;
+        }
+
+        .P {
+            background-color: #109618 !important;
+            color: white;
+        }
+
+        .A {
+            background-color: #dc3912 !important;
+            color: white !important;
+        }
+
+        .L {
+            background-color: #3366cc !important;
+            color: white;
+        }
+
+        .HL {
+            background-color: #ff9900 !important;
+            color: darkblue !important;
+        }
+
+        .HD {
+            color: darkblue !important;
+            background-color: #990099 !important;
+        }
+
+        .NA {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        .spinnerMain {
+            position: fixed;
+            text-align: center;
+            z-index: 1234;
+            overflow: auto;
+            display: block;
+            width: 100%; /* width of the spinner gif */
+            height: 100%; /*hight of the spinner gif +2px to fix IE8 issue */
+            background: rgba(0,0,0,0.1);
+        }
+
+        .spinner {
+            top: 50%;
+            left: 55%;
+            margin-left: -50px; /* half width of the spinner gif */
+            margin-top: -50px; /* half height of the spinner gif */
+            position: fixed;
+            text-align: center;
+            z-index: 1234;
+            overflow: auto;
+            display: block;
+            width: 100px; /* width of the spinner gif */
+            height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
+        }
+
+        .actionLink {
+            height: 22px;
+            padding-top: 3px;
+        }
+
+        .btnDefaultColor {
+            color: black;
+            margin-left: 4%;
+            margin-right: 4%;
+        }
+
+        .btnDefaultColorFaded {
+            color: #e4dada;
+            margin-left: 4%;
+            margin-right: 4%;
+            cursor: not-allowed;
+        }
+
+        .mandateLbl {
+            color: red;
+            /*font-size:large;*/
+        }
+
+        .selected {
+            background-color: #b5d7ea;
+        }
+
+        .modal-class {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .fadeOutElement {
+            opacity: 0;
+            -webkit-transition: all 2s ease-in-out;
+            -moz-transition: all 2s ease-in-out;
+            /*-ms-transition: all 2s ease-in-out;*/
+            -o-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+    </style>
+    <style>
+
+        table.table-bordered {
+            border: 1px solid #808080 !important;
+        }
+
+            table.table-bordered > thead > tr > th {
+                border: 1px solid #808080 !important;
+            }
+
+            table.table-bordered > tbody > tr > td {
+                border: 1px solid #808080 !important;
+            }
+
+        .navbar-name-sec ul.nav.navbar-nav li .school_name p {
+            color: #fff;
+            margin-bottom: 0px;
+            padding-top: 1px;
+            margin-left: 0px;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: left;
+        }
+    </style>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 17px;
+        }
+
+            .switch input {
+                display: none;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 13px;
+                width: 13px;
+                left: 2px;
+                bottom: 2px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(13px);
+            -ms-transform: translateX(13px);
+            transform: translateX(13px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 17px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
+        .skin-blue .main-header .logo {
+            font-size: 30px;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+
+<body id="bodyOuterMain" class="hold-transition skin-blue sidebar-mini">
+    <div id="spinner" class="spinnerMain" style="display:none;">
+        <div class="spinner">
+            <img id="img-spinner" src="../Images/System/Loading.gif" alt="Loading" style="width:100%;height:100%;" />
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <header class="main-header ">
+
+           
+
+            <!-- Logo -->
+            <a href="@Url.Action("Dashboard", "Dashboard")" class="logo">
+                @sessVal._sessionName
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                @*<span class="logo-mini"><img src="@Url.Content("~/Images/System/7itiansLogo_Small.png")" style="width:90%;height:90%;" /></span>*@
+                <!-- logo for regular state and mobile devices -->
+                @*<span class=""><img src="@Url.Content("~/Images/System/7itians_logo.png")" style="width:90%;height:90%;" /></span>*@
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+
+
+
+
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" style="width: 10% !important; float: left !important;" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+                <div class="navbar-name-sec" style="margin: 0.2% 0% 0% 10% !important; float: left !important; width: 40% !important; font-weight: bold !important; font-size: 2em !important;">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <div class="school_name ">
+                                <p style="font-size:.7em!important;">@sessVal._schoolName  </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav" style="float: right !important; margin: 0px !important; display: inline-block !important;">
+                        <li class="dropdown notifications-menu">
+                            <a id="btnGetNotifications" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                @if (sessVal.notificationList.Count > 0)
+                                {
+                                    <span id="displayCountSpan" class="label label-warning"><span class="count" id="newAlertCount">@sessVal.notificationList.Count</span></span>
+                                }
+                            </a>
+                            @if (sessVal.notificationList != null)
+                            {
+                                <ul class="dropdown-menu">
+                                    <li class="header">You have <span id="totalNotificationCount">@sessVal.notificationList.Count</span> notifications</li>
+                                    <li>
+                                        <ul class="menu" id="alertNotifiationUL">
+                                            @foreach (var notification in sessVal.notificationList)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action(notification.ActionName, notification.Controller)">
+                                                        <i class="fa fa-circle-o"></i> <span>@notification.Msg </span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            }
+
+                        </li>
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                @*<img src="../@sessVal._userDisplayImage" class="user-image" alt="User Image" />*@
+                                <span class="hidden-xs">@sessVal._userDisplayname</span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="../@sessVal._userDisplayImage"
+                                         class="img-circle" alt="User Image">
+                                    <p>
+                                        @sessVal._userDisplayname
+                                        <small><a title="Click here to change password" style="color:white;" href="@Url.Action("ChangePassword", "Account")">Change Password</a></small>
+                                    </p>
+                                </li>
+                                <li class="user-footer">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="@Url.Action("EditUserProfile", "Account")" class="btn btn-default btn-flat pull-left">Profile</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a href="@Url.Action("Logout", "Account")" class="btn btn-default btn-flat pull-right">Sign out</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Principal"))
+                        {
+                            <li>
+                                <a href="#" data-toggle="control-sidebar">
+                                    <i class="fa fa-flag"></i>
+                                    <span class="label label-info" id="event_NotificationCount" style="display:none;"><span>0</span></span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Modal -->
+        <div class="modal fade" id="mainModalWithSave" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="color:white;background-color:#337ab7">
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor:pointer;" data-dismiss="modal"></span>
+                        <h4 class="modal-title"> <span id="modalTitleWithSave"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMsgBodyWithSave">Messege…</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade " id="mainModalChat" role="dialog">
+            <div class="modal-dialog modal-sm modal-class">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor:pointer;" data-dismiss="modal"></span>
+                        <h4 class="modal-title"> <i class="fa fa-comments"></i> &nbsp; Chat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="mainModalChatBody">Messege…</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="mainModal" role="dialog">
+            <div id="modalDialog" class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" id="mainModalHeader" style="color:white;">
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor:pointer;" data-dismiss="modal"></span>
+                        <h4 class="modal-title"> <span id="modalTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMsgBody">Messege…</p>
+                    </div>
+                    @*<div class="modal-footer">
+                            <button type="button" id="modalbtnOK" onclick="modalBtnOkClick()" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+        @*<div class="modal fade" id="modalConfirmYesNo" role="dialog">
+                <div id="modaldialogConfirm" class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#337ab7;">
+                            <span class="glyphicon glyphicon-remove pull-right" style="cursor:pointer;" data-dismiss="modal"></span>
+                            <h4 id="lblTitleConfirmYesNo" class="modal-title">Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="lblMsgConfirmYesNo"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnYesConfirmYesNo" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                            <button id="btnNoConfirmYesNo" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+
+        @Html.Hidden("ErrorMsgOnJasonFailed", "There is an error to process your request please try again after some time..!")
+        @Html.Hidden("ErrorMsgOnModelStateNotValid", "Something is going wrong/missing, please check again..!")
+
+        @Html.Hidden("hddnReloadTime", 3000)
+
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="../@sessVal._userDisplayImage" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>@sessVal._userDisplayname</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" id="search" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                @if (User.IsInRole("Student"))
+                {
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header" style="color:#d0cbcb;">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Dashboard", "Dashboard", null)">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-green">new</small>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul id="menuHead" class="sidebar-menu" data-widget="tree">
+                        <li class="header" style="color:#d0cbcb;">&nbsp;</li>
+                        <li>
+                            <a href="@Url.Action("Dashboard", "Dashboard", null)">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-green">new</small>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-6">
+                    &nbsp;
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="alert alert-info alert-dismissible" id="autoHideMsgDiv" style="z-index:1;position: absolute;min-width:98%;max-width:98%;display:none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i id="autoHideDivTitleIcon" class="icon fa fa-info"></i> <span id="autoHideDivTitle"> Alert! </span> </h4>
+                        <p id="autoHideDivMsg"> Info alert preview. This alert is dismissable.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            @RenderBody()
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                Online <i class="fa fa-user"></i>   <span class="" id="noOfOnlineUsersCount">0</span> ||  <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &py; @Session["CopyRightsYear"].ToString() <a target="_blank" href="@Session["CopyRightsLink"].ToString()">@Session["CopyRightsName"].ToString()</a>.</strong> All rights
+            reserved.
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-light">
+            <h3 class="control-sidebar-heading" style="margin-left:4%;"><strong>Recent Activity</strong> </h3>
+            <ul class="control-sidebar-menu" id="slimScrollDiv_RecentActivityDiv">
+                <li>
+                    <a href="javascript:void(0)">
+                        Loading..!
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+        immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    $(function () {
+        $('[data-mask]').inputmask();
+    });
+
+    function countChar(val, divId) {
+       // var len = val.value.length;
+        $('#' + divId).text(val.value.length);
+        @*if (len > '@smsTextCount') {
+            val.value = val.value.substring(0, '@smsTextCount');
+        } else {
+            $('#charNum').text('@smsTextCount' - len);
+        }*@
+    };
+    $(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        })
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        })
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        })
+    });
+
+    function CommonAjaxPost(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+        if ($($form).valid()) {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () {
+                    spinnerShow();
+                },
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                error: function (xhr, status, error) {
+                    OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+                },
+                success: function (response) {
+                    if (response.status == 'success') {
+                        OpenMessegeAutoHideDiv(response.Msg, response.Color);
+                        setTimeout(function () { window.location.reload(); }, 3000);
+                    }
+                    else {
+                        if (response.ErrorList != null) {
+                            OpenMessegeAutoHideDiv($('#ErrorMsgOnModelStateNotValid').val(), 'Info');
+                            AddErrorAttributeCSS(response.ErrorList); //Available in CustomCommon.js
+                        }
+                        else {
+                            OpenMessegeAutoHideDiv('Internal server error, please contact your administrator', 'Danger');
+                        }
+                        if (response.ValidKeyList != null) {
+                            AddValidAttributeCSS(response.ValidKeyList); //Available in CustomCommon.js
+                        }
+                        spinnerHide();
+                    }
+                },
+                complete: function () {
+                    spinnerHide();
+                }
+            });
+        }
+    }
+    function CommonAjaxPostWithoutReload(btnClicked) {
+        var $form = $(btnClicked).parents('form');
+        if ($($form).valid()) {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () {
+                    spinnerShow();
+                },
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                error: function (xhr, status, error) {
+                    OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+                },
+                success: function (response) {
+                    if (response.status == 'success') {
+                        OpenMessegeAutoHideDiv(response.Msg, response.Color);
+                    }
+                    else {
+                        if (response.ErrorList != null) {
+                            OpenMessegeAutoHideDiv($('#ErrorMsgOnModelStateNotValid').val(), 'Info');
+                            AddErrorAttributeCSS(response.ErrorList); //Available in CustomCommon.js
+                        }
+                        else {
+                            OpenMessegeAutoHideDiv('Internal server error, please contact your administrator', 'Danger');
+                        }
+                        if (response.ValidKeyList != null) {
+                            AddValidAttributeCSS(response.ValidKeyList); //Available in CustomCommon.js
+                        }
+                        spinnerHide();
+                    }
+                },
+                complete: function () {
+                    spinnerHide();
+                }
+            });
+        }
+    }
+
+    function CommonAjaxPostWithCallback(btnClicked, callbackFun) {
+        var $form = $(btnClicked).parents('form');
+        if ($($form).valid()) {
+            $.ajax({
+                type: "POST",
+                beforeSend: function () {
+                    spinnerShow();
+                },
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                error: function (xhr, status, error) {
+                    OpenMessegeAutoHideDiv($('#ErrorMsgOnJasonFailed').val(), 'Danger');
+                },
+                success: function (response) {
+                    if (response.status == 'success') {
+                        OpenMessegeAutoHideDiv(response.Msg, response.Color);
+                        callbackFun();
+                    }
+                    else {
+                        if (response.ErrorList != null) {
+                            OpenMessegeAutoHideDiv($('#ErrorMsgOnModelStateNotValid').val(), 'Info');
+                            AddErrorAttributeCSS(response.ErrorList); //Available in CustomCommon.js
+                        }
+                        else {
+                            OpenMessegeAutoHideDiv('Internal server error, please contact your administrator', 'Danger');
+                        }
+                        if (response.ValidKeyList != null) {
+                            AddValidAttributeCSS(response.ValidKeyList); //Available in CustomCommon.js
+                        }
+                        spinnerHide();
+                    }
+                },
+                complete: function () {
+                    spinnerHide();
+                }
+            });
+        }
+    }
+
+    //function reoladPage(url) {
+    //    setTimeout(function () { window.location = url; }, 3000);
+    //}
+
+    function exportToExcel(table, tableHeader) {
+        if (tableHeader == null || tableHeader == "") {
+            $('<table>')
+                .append($("#" + table).html())
+                .table2excel({
+                    exclude: ".excludeThisClass",
+                    name: "Worksheet Name",
+                    filename: "StudentReport"
+                });
+        } else {
+            $('<table>')
+                .append($('#' + tableHeader ).html() +  $("#" + table).html())
+                .table2excel({
+                    exclude: ".excludeThisClass",
+                    name: "Worksheet Name",
+                    filename: "StudentReport"
+                });
+        }
+    }
+
+    function print_HTML(headerDiv, bodyDiv) {
+        var html = $('#' + headerDiv).html();
+        html += $('#' + bodyDiv).html();
+        var w = window.open();
+        $(w.document.body).html(html);
+        w.print();
+        //w.close();
+    }
+
+    $(function () {
+        var fnTimeOut = function () {
+            jQuery.timeoutDialog.setupDialogTimer({
+                timeout: 3600,
+                countdown: 60,
+                logout_redirect_url: '@Url.Action("Logout", "Account")',
+                keep_alive_url: '@Url.Action("Keepalive", "Account")'
+            });
+        };
+        fnTimeOut();
+    });
+
+    $(function () {
+        $("#search").on("keyup", function () {
+            if (this.value.length > 0) {
+                $("#menuHead > li").hide().filter(function () {
+                    return $(this).text().toLowerCase().indexOf($("#search").val().toLowerCase()) != -1;
+                }).show();
+                $("#menuHead > li > ul > li").hide().filter(function () {
+                    return $(this).text().toLowerCase().indexOf($("#search").val().toLowerCase()) != -1;
+                }).show();
+            }
+            else {
+                $("#menuHead > li").show();
+                $("#menuHead > li > ul > li").show();
+            }
+        });
+    });
+
+    $(function () {
+        $('.multiselectdropdown').multiselect({
+            includeSelectAllOption: true,
+            maxHeight: 300
+        });
+    });
+
+    $(function () {
+        $('.multiSelectWithSelectOptGrp').multiselect({
+            includeSelectAllOption: true,
+            enableClickableOptGroups: true,
+            maxHeight: 300,
+        });
+    });
+    $(function () {
+        var i = $('a[href^="/' + location.pathname.split("/")[1] + '/' + location.pathname.split("/")[2] + '"]').attr('id');
+        $('#menuId_' + i).addClass('active menu-open');
+        $('a[href^="/' + location.pathname.split("/")[1] + '/' + location.pathname.split("/")[2] + '"]').closest('li').addClass('active');
+    });
+
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+    })
+
+    $(function () {
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
+        $('.date').bootstrapDP({
+            autoclose: true,
+            format: 'dd/mm/yyyy'
+        });
+    });
+
+    function EmptyDropDownValue(DropDownId, DefaultName) {
+        var $ddlDropDown = $('#' + DropDownId);
+        $ddlDropDown.empty();
+        $ddlDropDown.append($("<option />").text("-" + DefaultName + "-"));
+    }
+</script>
+
+<script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="~/bower_components/signalR/jquery.signalR-2.3.0.min.js"></script>
+<script src="/signalr/hubs"></script>
+
+@*Signal R Services*@
+
+@*<script type="text/javascript">
+            $(document).ready(function () {
+
+                function setTotalNotification(totalNotif) {
+                    if (parseInt(totalNotif) > 0) {
+                        $('.fadeOutElement').css('opacity', 1);
+                        $("span.count").html(totalNotif);
+                    }
+                }
+                var hub = $.connection.notificationHub;
+                if ('@isNotificationDispaly' == true ||'@isNotificationDispaly' == 'True' ) {
+                    // Notify to client with the recent updates from hub that broadcast messages.
+                    hub.client.updateStudentInformation = function (serverResponse) {
+                      //  alert('changes triggered by ' + serverResponse + ' operation');
+                        getAlertEventnotification()
+                    };
+                }
+                function getAlertEventnotification() {
+                    $.ajax({
+                        url: '/Common/EventManager_Notification',
+                        contentType: 'application/html ; charset:utf-8',
+                        type: 'GET',
+                        dataType: 'html',
+                        success: function (result) {
+                            $('#slimScrollDiv_RecentActivityDiv').html(result);
+                        },
+                    })
+                }
+
+
+                //Client Call
+                hub.client.broadcaastNotif = function (totalNotif) {
+                    setTotalNotification(totalNotif)
+                };
+
+                hub.client.showUsersOnLine = function (data) {
+                    $('#noOfOnlineUsersCount').html(data);
+                };
+
+                //$.connection.hub.start().done(function () { });
+
+                $.connection.hub.start()
+                    .done(function () {
+                        // console.log("Hub Connected!");
+                        //Server Call
+                        hub.server.getNotification();
+
+                        if ('@isNotificationDispaly' == true ||'@isNotificationDispaly' == 'True' ) {
+                            getAlertEventnotification();
+                        }
+                    })
+                    .fail(function () {
+                        console.log("Could not Connect!");
+                    });
+
+
+                // Click on notification icon for show notification
+                $('#btnGetNotifications').click(function (e) {
+                    updateNotification();
+                    $('span.count', this).html('0');
+                    $('.fadeOutElement').css('opacity', 0);
+                    // $('#displayCountSpan').hide();
+                })
+
+                // update notification
+                function updateNotification() {
+                    $('#alertNotifiationUL').html('<li><a href="#"><i class=""></i>Loading..!</a></li>');
+                    $.ajax({
+                        type: 'GET',
+                        url: '/DashBoard_StaffStatatics/_NotificationList',
+                        success: function (response) {
+                            $('#alertNotifiationUL').html(response);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    })
+                }
+            });
+
+            $(function () {
+                $("#slimScrollDiv_RecentActivityDiv").slimScroll({
+                    height: "600",
+                    size: "7px",
+                    alwaysVisible: false
+                });
+            });
+    </script>*@
+
+@*@Scripts.Render("~/bundles/jqueryval")*@
+
+<script src="~/bower_components/appScripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/bower_components/appScripts/jquery.validate.js"></script>
+<script src="~/bower_components/appScripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/bower_components/bootstrap/notifyjs/bootstrap-notify.js"></script>
+<script src="~/bower_components/sweetalert2/sweetalert2.all.min.js"></script>
